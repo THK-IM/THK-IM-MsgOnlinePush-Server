@@ -69,13 +69,13 @@ func RegisterMsgOnlinePushHandlers(ctx *app.Context) {
 		}
 		// rpc通知api服务用户上线
 		{
-			sendUserOnlineStatus(ctx, client, true)
+			sendUserOnlineStatus(ctx, client, true, true)
 		}
 	})
 
 	server.SetOnClientClosed(func(client websocket.Client) {
 		ctx.Logger().Infof("OnClientClosed: %v", client.Info())
-		sendUserOnlineStatus(ctx, client, false)
+		sendUserOnlineStatus(ctx, client, false, false)
 	})
 
 	server.SetOnClientMsgReceived(func(msg string, client websocket.Client) {
@@ -86,6 +86,11 @@ func RegisterMsgOnlinePushHandlers(ctx *app.Context) {
 			err = onWsClientMsgReceived(ctx, client, signal.Type, signal.Body)
 		}
 	})
+
+	errInit := server.Init()
+	if errInit != nil {
+		panic(errInit)
+	}
 
 	ctx.MsgPusherSubscriber().Sub(func(m map[string]interface{}) error {
 		return onMqPushMsgReceived(m, server, ctx)
@@ -133,17 +138,18 @@ func onWsHeatBeatMsgReceived(ctx *app.Context, client websocket.Client, body *st
 		return err
 	}
 	ctx.Logger().Info(client.Info())
-	sendUserOnlineStatus(ctx, client, true)
+	sendUserOnlineStatus(ctx, client, true, false)
 	return client.WriteMessage(heatBody)
 }
 
-func sendUserOnlineStatus(ctx *app.Context, client websocket.Client, online bool) {
+func sendUserOnlineStatus(ctx *app.Context, client websocket.Client, online, isLogin bool) {
 	now := time.Now().UnixMilli()
 	client.SetLastOnlineTime(now)
 	req := dto.PostUserOnlineReq{
 		NodeId:    ctx.NodeId(),
 		ConnId:    client.Info().Id,
 		Online:    online,
+		IsLogin:   isLogin,
 		UId:       client.Info().UId,
 		Platform:  client.Info().Platform,
 		Timestamp: time.Now().UnixMilli(),
@@ -155,13 +161,8 @@ func sendUserOnlineStatus(ctx *app.Context, client websocket.Client, online bool
 
 func onMqServerEventReceived(m map[string]interface{}, server websocket.Server, appCtx *app.Context) error {
 	tp, okType := m[event.ServerEventTypeKey].(string)
-	receivers, okReceivers := m[event.ServerEventReceiversKey].(string)
 	body, okBody := m[event.ServerEventBodyKey].(string)
-	if !okType || !okReceivers || !okBody {
-		return errorx.ErrMessageFormat
-	}
-	uIds := make([]int64, 0)
-	if err := json.Unmarshal([]byte(receivers), &uIds); err != nil {
+	if !okType || !okBody {
 		return errorx.ErrMessageFormat
 	}
 	if tp == event.ServerEventUserOnline {

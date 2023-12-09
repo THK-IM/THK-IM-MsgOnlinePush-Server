@@ -2,10 +2,9 @@ module github.com/thk-im/thk-im-msgonlinepush-server
 
 go 1.19
 
-require github.com/thk-im/thk-im-base-server v0.0.0-20231209060741-425a8695829f
+require github.com/thk-im/thk-im-base-server v0.0.0-20231209090331-e6268278e55f
 
 require (
-	github.com/THK-IM/THK-IM-Server v0.0.0-20231208145610-f5d2d1648cb0 // indirect
 	github.com/armon/go-metrics v0.4.1 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bwmarrin/snowflake v0.3.0 // indirect
