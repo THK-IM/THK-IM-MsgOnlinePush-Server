@@ -2,7 +2,7 @@ module github.com/thk-im/thk-im-msgonlinepush-server
 
 go 1.19
 
-require github.com/thk-im/thk-im-base-server v0.0.0-20231209090331-e6268278e55f
+require github.com/thk-im/thk-im-base-server v0.0.0-20231209151807-0f1de8f4c568
 
 require (
 	github.com/armon/go-metrics v0.4.1 // indirect

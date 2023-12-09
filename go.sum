@@ -276,8 +276,8 @@ github.com/stretchr/testify v1.8.1/go.mod h1:w2LPCIKwWwSfY2zedu0+kehJoqGctiVI29o
 github.com/stretchr/testify v1.8.2/go.mod h1:w2LPCIKwWwSfY2zedu0+kehJoqGctiVI29o6fzry7u4=
 github.com/stretchr/testify v1.8.3 h1:RP3t2pwF7cMEbC1dqtB6poj3niw/9gnV4Cjg5oW5gtY=
 github.com/stretchr/testify v1.8.3/go.mod h1:sz/lmYIOXD/1dqDmKjjqLyZ2RngseejIcXlSw2iwfAo=
-github.com/thk-im/thk-im-base-server v0.0.0-20231209090331-e6268278e55f h1:sJ3Ktg/j7c3ky3UDtrJ3Tn4vLX2F7l9KTGIbDLXm2BE=
-github.com/thk-im/thk-im-base-server v0.0.0-20231209090331-e6268278e55f/go.mod h1:AsP/NLJIFHBzuWcJTApSBSMqaTQaf0WzdgnybpK8R1w=
+github.com/thk-im/thk-im-base-server v0.0.0-20231209151807-0f1de8f4c568 h1:x22ep8nRQVX13fq57qlvfQtdOlJAWTE6rAJQMs1p6rY=
+github.com/thk-im/thk-im-base-server v0.0.0-20231209151807-0f1de8f4c568/go.mod h1:AsP/NLJIFHBzuWcJTApSBSMqaTQaf0WzdgnybpK8R1w=
 github.com/tv42/httpunix v0.0.0-20150427012821-b75d8614f926/go.mod h1:9ESjWnEqriFuLhtthL60Sar/7RFoluCcXsuvEwTV5KM=
 github.com/twitchyliquid64/golang-asm v0.15.1 h1:SU5vSMR7hnwNxj24w34ZyCi/FmDZTkS4MhqMhdFk5YI=
 github.com/twitchyliquid64/golang-asm v0.15.1/go.mod h1:a1lVb/DtPvCB8fslRZhAngC2+aY1QWCk3Cedj/Gdt08=
