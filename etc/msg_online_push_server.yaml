@@ -1,6 +1,6 @@
 Name: msg_online_push_server
 Host: 0.0.0.0
-Port: 30000
+Port: 21000
 Mode: debug
 # exposed外网暴露模式，校验用户token
 # backend后端模式，校验ip
@@ -46,10 +46,10 @@ Metric:
   PushGateway: ""
   PushInterval: 10
 Sdks:
-  - Name: msg-api
-    Endpoint: "http://127.0.0.1:10000"
-  - Name: user-api
-    Endpoint: "http://127.0.0.1:18000"
+  - Name: user_api
+    Endpoint: "http://host.docker.internal:10000"
+  - Name: msg_api
+    Endpoint: "http://host.docker.internal:20000"
 MsgQueue:
   Publishers:
     - Topic: "server_event"

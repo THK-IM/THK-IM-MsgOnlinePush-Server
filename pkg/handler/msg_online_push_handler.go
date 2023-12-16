@@ -2,13 +2,14 @@ package handler
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
-	"github.com/thk-im/thk-im-base-server/dto"
 	"github.com/thk-im/thk-im-base-server/event"
-	"github.com/thk-im/thk-im-base-server/rpc"
 	"github.com/thk-im/thk-im-base-server/websocket"
+	msgDto "github.com/thk-im/thk-im-msgapi-server/pkg/dto"
 	"github.com/thk-im/thk-im-msgonlinepush-server/pkg/app"
 	"github.com/thk-im/thk-im-msgonlinepush-server/pkg/errorx"
+	userDto "github.com/thk-im/thk-im-user-server/pkg/dto"
 	"strconv"
 	"time"
 )
@@ -18,16 +19,22 @@ func RegisterMsgOnlinePushHandlers(ctx *app.Context) {
 	server.SetUidGetter(func(token string, pf string) (int64, error) {
 		if ctx.Config().Mode == "debug" {
 			if uId, err := strconv.Atoi(token); err != nil {
+				ctx.Logger().Errorf("GetUidByToken: %v, err: %v", token, err)
 				return 0, err
 			} else {
 				return int64(uId), nil
 			}
 		} else {
-			req := rpc.GetUserIdByTokenReq{Token: token, Platform: pf}
-			if res, err := ctx.RpcUserApi().GetUserIdByToken(req); err != nil {
+			req := userDto.TokenLoginReq{Token: token, Platform: pf}
+			if res, err := ctx.UserApi().LoginByToken(req); err != nil {
+				ctx.Logger().Errorf("GetUidByToken: %v, err: %v", token, err)
 				return 0, err
 			} else {
-				return res.UserId, nil
+				if res.User == nil {
+					ctx.Logger().Errorf("GetUidByToken: %v, err: %v", token, res)
+					return 0, errors.New("user info is nil")
+				}
+				return res.User.Id, nil
 			}
 		}
 	})
@@ -145,7 +152,7 @@ func onWsHeatBeatMsgReceived(ctx *app.Context, client websocket.Client, body *st
 func sendUserOnlineStatus(ctx *app.Context, client websocket.Client, online, isLogin bool) {
 	now := time.Now().UnixMilli()
 	client.SetLastOnlineTime(now)
-	req := dto.PostUserOnlineReq{
+	req := msgDto.PostUserOnlineReq{
 		NodeId:    ctx.NodeId(),
 		ConnId:    client.Info().Id,
 		Online:    online,
@@ -154,7 +161,7 @@ func sendUserOnlineStatus(ctx *app.Context, client websocket.Client, online, isL
 		Platform:  client.Info().Platform,
 		Timestamp: time.Now().UnixMilli(),
 	}
-	if err := ctx.RpcMsgApi().PostUserOnlineStatus(req); err != nil {
+	if err := ctx.MsgApi().PostUserOnlineStatus(&req); err != nil {
 		ctx.Logger().Errorf("sendUserOnlineStatus, err: %v", err)
 	}
 }
