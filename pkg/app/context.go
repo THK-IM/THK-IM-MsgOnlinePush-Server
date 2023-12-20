@@ -13,10 +13,16 @@ type Context struct {
 }
 
 func (c *Context) UserApi() userSdk.UserApi {
+	if c.Context.SdkMap["user_api"] == nil {
+		return nil
+	}
 	return c.Context.SdkMap["user_api"].(userSdk.UserApi)
 }
 
 func (c *Context) MsgApi() msgSdk.MsgApi {
+	if c.Context.SdkMap["msg_api"] == nil {
+		return nil
+	}
 	return c.Context.SdkMap["msg_api"].(msgSdk.MsgApi)
 }
 

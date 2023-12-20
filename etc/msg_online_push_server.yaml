@@ -46,10 +46,10 @@ Metric:
   PushGateway: ""
   PushInterval: 10
 Sdks:
-  - Name: user_api
-    Endpoint: "http://host.docker.internal:10000"
-  - Name: msg_api
-    Endpoint: "http://host.docker.internal:20000"
+#  - Name: user_api
+#    Endpoint: "http://host.docker.internal:10000"
+#  - Name: msg_api
+#    Endpoint: "http://host.docker.internal:20000"
 MsgQueue:
   Publishers:
     - Topic: "server_event"

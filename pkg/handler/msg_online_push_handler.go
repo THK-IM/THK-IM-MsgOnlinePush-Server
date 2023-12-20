@@ -150,6 +150,9 @@ func onWsHeatBeatMsgReceived(ctx *app.Context, client websocket.Client, body *st
 }
 
 func sendUserOnlineStatus(ctx *app.Context, client websocket.Client, online, isLogin bool) {
+	if ctx.MsgApi() == nil {
+		return
+	}
 	now := time.Now().UnixMilli()
 	client.SetLastOnlineTime(now)
 	req := msgDto.PostUserOnlineReq{
