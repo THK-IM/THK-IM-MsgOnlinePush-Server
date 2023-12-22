@@ -4,34 +4,34 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/sirupsen/logrus"
+	baseDto "github.com/thk-im/thk-im-base-server/dto"
 	"github.com/thk-im/thk-im-base-server/event"
 	"github.com/thk-im/thk-im-base-server/websocket"
 	msgDto "github.com/thk-im/thk-im-msgapi-server/pkg/dto"
 	"github.com/thk-im/thk-im-msgonlinepush-server/pkg/app"
 	"github.com/thk-im/thk-im-msgonlinepush-server/pkg/errorx"
-	userDto "github.com/thk-im/thk-im-user-server/pkg/dto"
 	"strconv"
 	"time"
 )
 
 func RegisterMsgOnlinePushHandlers(ctx *app.Context) {
 	server := ctx.WebsocketServer()
-	server.SetUidGetter(func(token string, pf string) (int64, error) {
+	server.SetUidGetter(func(claim baseDto.ThkClaims) (int64, error) {
 		if ctx.Config().Mode == "debug" {
-			if uId, err := strconv.Atoi(token); err != nil {
-				ctx.Logger().Errorf("GetUidByToken: %v, err: %v", token, err)
+			if uId, err := strconv.Atoi(baseDto.JwtToken); err != nil {
+				ctx.Logger().WithFields(logrus.Fields(claim)).Errorf("GetUidByToken: %v, err: %v", claim, err)
 				return 0, err
 			} else {
 				return int64(uId), nil
 			}
 		} else {
-			req := userDto.TokenLoginReq{Token: token, Platform: pf}
-			if res, err := ctx.UserApi().LoginByToken(req); err != nil {
-				ctx.Logger().Errorf("GetUidByToken: %v, err: %v", token, err)
+			if res, err := ctx.UserApi().LoginByToken(claim); err != nil {
+				ctx.Logger().WithFields(logrus.Fields(claim)).Errorf("GetUidByToken: %v, err: %v", claim, err)
 				return 0, err
 			} else {
 				if res.User == nil {
-					ctx.Logger().Errorf("GetUidByToken: %v, err: %v", token, res)
+					ctx.Logger().WithFields(logrus.Fields(claim)).Errorf("GetUidByToken: %v, err: %v", claim, res)
 					return 0, errors.New("user info is nil")
 				}
 				return res.User.Id, nil
@@ -45,11 +45,11 @@ func RegisterMsgOnlinePushHandlers(ctx *app.Context) {
 			now := time.Now().UnixMilli()
 			serverTimeBody, err := event.BuildSignalBody(event.SignalSyncTime, strconv.Itoa(int(now)))
 			if err != nil {
-				ctx.Logger().Errorf("OnClientConnected: %s", err.Error())
+				ctx.Logger().WithFields(logrus.Fields(client.Claims())).Errorf("OnClientConnected: %s", err.Error())
 			}
 			err = client.WriteMessage(serverTimeBody)
 			if err != nil {
-				ctx.Logger().Errorf("OnClientConnected: %s", err.Error())
+				ctx.Logger().WithFields(logrus.Fields(client.Claims())).Errorf("OnClientConnected: %s", err.Error())
 			}
 		}
 		{
@@ -60,17 +60,17 @@ func RegisterMsgOnlinePushHandlers(ctx *app.Context) {
 			}
 			err = client.WriteMessage(connIdBody)
 			if err != nil {
-				ctx.Logger().Errorf("OnClientConnected: %s", err.Error())
+				ctx.Logger().WithFields(logrus.Fields(client.Claims())).Errorf("OnClientConnected: %s", err.Error())
 			}
 		}
 		// 发送用户上线事件
 		{
 			if userOnlineEvent, err := event.BuildUserOnlineEvent(ctx.NodeId(), true,
-				client.Info().UId, client.Info().Id, client.Info().FirstOnLineTime, client.Info().Platform); err != nil {
-				ctx.Logger().Error("UserOnlineEvent Build err:", err)
+				client.Info().UId, client.Info().Id, client.Info().FirstOnLineTime, client.Claims().GetClientPlatform()); err != nil {
+				ctx.Logger().WithFields(logrus.Fields(client.Claims())).Error("UserOnlineEvent Build err:", err)
 			} else {
 				if err = ctx.ServerEventPublisher().Pub(fmt.Sprintf("uid-%d", client.Info().UId), userOnlineEvent); err != nil {
-					ctx.Logger().Error("UserOnlineEvent Pub err:", err)
+					ctx.Logger().WithFields(logrus.Fields(client.Claims())).Error("UserOnlineEvent Pub err:", err)
 				}
 			}
 		}
@@ -81,14 +81,14 @@ func RegisterMsgOnlinePushHandlers(ctx *app.Context) {
 	})
 
 	server.SetOnClientClosed(func(client websocket.Client) {
-		ctx.Logger().Infof("OnClientClosed: %v", client.Info())
+		ctx.Logger().WithFields(logrus.Fields(client.Claims())).Infof("OnClientClosed: %v", client.Info())
 		sendUserOnlineStatus(ctx, client, false, false)
 	})
 
 	server.SetOnClientMsgReceived(func(msg string, client websocket.Client) {
 		signal := &event.SignalBody{}
 		if err := json.Unmarshal([]byte(msg), signal); err != nil {
-			ctx.Logger().Errorf("json Unmarshal err: %s, msg: %s", err.Error(), msg)
+			ctx.Logger().WithFields(logrus.Fields(client.Claims())).Errorf("OnClientMsgReceived err: %s, msg: %s", err.Error(), msg)
 		} else {
 			err = onWsClientMsgReceived(ctx, client, signal.Type, signal.Body)
 		}
@@ -144,7 +144,7 @@ func onWsHeatBeatMsgReceived(ctx *app.Context, client websocket.Client, body *st
 	if err != nil {
 		return err
 	}
-	ctx.Logger().Info(client.Info())
+	ctx.Logger().WithFields(logrus.Fields(client.Claims())).Info(client.Info())
 	sendUserOnlineStatus(ctx, client, true, false)
 	return client.WriteMessage(heatBody)
 }
@@ -161,11 +161,11 @@ func sendUserOnlineStatus(ctx *app.Context, client websocket.Client, online, isL
 		Online:    online,
 		IsLogin:   isLogin,
 		UId:       client.Info().UId,
-		Platform:  client.Info().Platform,
+		Platform:  client.Claims().GetClientPlatform(),
 		Timestamp: time.Now().UnixMilli(),
 	}
-	if err := ctx.MsgApi().PostUserOnlineStatus(&req); err != nil {
-		ctx.Logger().Errorf("sendUserOnlineStatus, err: %v", err)
+	if err := ctx.MsgApi().PostUserOnlineStatus(&req, client.Claims()); err != nil {
+		ctx.Logger().WithFields(logrus.Fields(client.Claims())).Errorf("sendUserOnlineStatus, err: %v", err)
 	}
 }
 
@@ -199,7 +199,7 @@ func processUserOnlineEvent(body *event.OnlineBody, server websocket.Server, app
 				}
 			} else if appCtx.Config().WebSocket.MultiPlatform == 1 {
 				// 一个平台只能登录一台设备
-				if client.Info().Platform == body.Platform {
+				if client.Claims().GetClientPlatform() == body.Platform {
 					if client.Info().FirstOnLineTime < body.OnLineTime {
 						if err := server.RemoveClient(body.UserId, "connect at other device", client); err != nil {
 							appCtx.Logger().Error("OnUserOnLineEvent RemoveClient err: ", err)
