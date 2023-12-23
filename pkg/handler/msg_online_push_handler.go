@@ -18,25 +18,25 @@ import (
 func RegisterMsgOnlinePushHandlers(ctx *app.Context) {
 	server := ctx.WebsocketServer()
 	server.SetUidGetter(func(claim baseDto.ThkClaims) (int64, error) {
-		if ctx.Config().Mode == "debug" {
-			if uId, err := strconv.Atoi(baseDto.JwtToken); err != nil {
-				ctx.Logger().WithFields(logrus.Fields(claim)).Errorf("GetUidByToken: %v, err: %v", claim, err)
-				return 0, err
-			} else {
-				return int64(uId), nil
-			}
+		//if ctx.Config().Mode == "debug" {
+		//	if uId, err := strconv.Atoi(baseDto.JwtToken); err != nil {
+		//		ctx.Logger().WithFields(logrus.Fields(claim)).Errorf("GetUidByToken: %v, err: %v", claim, err)
+		//		return 0, err
+		//	} else {
+		//		return int64(uId), nil
+		//	}
+		//} else {
+		if res, err := ctx.UserApi().LoginByToken(claim); err != nil {
+			ctx.Logger().WithFields(logrus.Fields(claim)).Errorf("GetUidByToken: %v, err: %v", claim, err)
+			return 0, err
 		} else {
-			if res, err := ctx.UserApi().LoginByToken(claim); err != nil {
-				ctx.Logger().WithFields(logrus.Fields(claim)).Errorf("GetUidByToken: %v, err: %v", claim, err)
-				return 0, err
-			} else {
-				if res.User == nil {
-					ctx.Logger().WithFields(logrus.Fields(claim)).Errorf("GetUidByToken: %v, err: %v", claim, res)
-					return 0, errors.New("user info is nil")
-				}
-				return res.User.Id, nil
+			if res.User == nil {
+				ctx.Logger().WithFields(logrus.Fields(claim)).Errorf("GetUidByToken: %v, err: %v", claim, res)
+				return 0, errors.New("user info is nil")
 			}
+			return res.User.Id, nil
 		}
+		//}
 	})
 	server.SetOnClientConnected(func(client websocket.Client) {
 		ctx.Logger().Infof("OnClientConnected: %v", client.Info())
