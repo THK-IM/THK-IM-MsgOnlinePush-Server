@@ -276,14 +276,11 @@ github.com/stretchr/testify v1.8.1/go.mod h1:w2LPCIKwWwSfY2zedu0+kehJoqGctiVI29o
 github.com/stretchr/testify v1.8.2/go.mod h1:w2LPCIKwWwSfY2zedu0+kehJoqGctiVI29o6fzry7u4=
 github.com/stretchr/testify v1.8.3 h1:RP3t2pwF7cMEbC1dqtB6poj3niw/9gnV4Cjg5oW5gtY=
 github.com/stretchr/testify v1.8.3/go.mod h1:sz/lmYIOXD/1dqDmKjjqLyZ2RngseejIcXlSw2iwfAo=
-github.com/thk-im/thk-im-base-server v0.0.0-20231228134043-304d36641379 h1:5xoBCyCGkYvVrHyNYFVy1o0N0wRi7OLV1S4DQ5NH7p4=
-github.com/thk-im/thk-im-base-server v0.0.0-20231228134043-304d36641379/go.mod h1:mkf72EZpdD7ab64Lo883W/+8aphmUijpyAR2jURnpbE=
+github.com/thk-im/thk-im-base-server v0.0.0-20240102130158-f585b8a86afa h1:LE5Mkptkd/E8mWZBemVjQQhztBe5+nl69/OHj42sShk=
 github.com/thk-im/thk-im-base-server v0.0.0-20240102130158-f585b8a86afa/go.mod h1:TQaEvvwbtE/BFE6S/kj0MyZlSiq3Eej1nJn/ph9S1VU=
-github.com/thk-im/thk-im-msgapi-server v0.0.0-20231228134319-4ffaee919639 h1:NcoBjlzHM4MI5+kSy0Hx1APUmMo2hJxUTmP37CW9OIY=
-github.com/thk-im/thk-im-msgapi-server v0.0.0-20231228134319-4ffaee919639/go.mod h1:Mv4Gfqh56BHpIer0pq6YjVIn/N8numP4G/9wjqJ6jHU=
+github.com/thk-im/thk-im-msgapi-server v0.0.0-20240102131112-0fc9b32b3457 h1:jskNVpgT2gAhN6bRpr7V2lBvBQkSXqHu7EXxa8Y/KYc=
 github.com/thk-im/thk-im-msgapi-server v0.0.0-20240102131112-0fc9b32b3457/go.mod h1:XWhnWJ1dWcv3W0j7UFYJ5nmE5v6MrwZUL4k90S5R7SI=
-github.com/thk-im/thk-im-user-server v0.0.0-20231228134223-109387e54f8b h1:nPBevVnTmJw0USADlwcGGMFTSG2MJlpSPwfM9M004O4=
-github.com/thk-im/thk-im-user-server v0.0.0-20231228134223-109387e54f8b/go.mod h1:rdHCakxQ7ymHu5cmSmnn5eJkbiRX7L1offeBveS0oRI=
+github.com/thk-im/thk-im-user-server v0.0.0-20240102130947-84ccbd0ed887 h1:ih/GWN/VbQP+ZJIuYjw/5IlEtx++yodD+qqnnkDxiVI=
 github.com/thk-im/thk-im-user-server v0.0.0-20240102130947-84ccbd0ed887/go.mod h1:v+JosidjD8tmVFmlYr/9tBzKcBiMUoeuV++7hul0iqY=
 github.com/tv42/httpunix v0.0.0-20150427012821-b75d8614f926/go.mod h1:9ESjWnEqriFuLhtthL60Sar/7RFoluCcXsuvEwTV5KM=
 github.com/twitchyliquid64/golang-asm v0.15.1 h1:SU5vSMR7hnwNxj24w34ZyCi/FmDZTkS4MhqMhdFk5YI=
