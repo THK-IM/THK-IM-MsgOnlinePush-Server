@@ -48,9 +48,9 @@ Metric:
   PushInterval: 10
 Sdks:
   - Name: user_api
-    Endpoint: "http://user.thkim.com:10000"
+    Endpoint: "http://user-api.thkim.com:10000"
   - Name: msg_api
-    Endpoint: "http://user.thkim.com:20000"
+    Endpoint: "http://msg-api.thkim.com:20000"
 MsgQueue:
   Publishers:
     - Topic: "server_event"
