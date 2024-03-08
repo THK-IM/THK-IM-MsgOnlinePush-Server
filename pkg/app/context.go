@@ -12,11 +12,11 @@ type Context struct {
 	*server.Context
 }
 
-func (c *Context) UserApi() userSdk.UserApi {
-	if c.Context.SdkMap["user_api"] == nil {
+func (c *Context) LoginApi() userSdk.LoginApi {
+	if c.Context.SdkMap["login_api"] == nil {
 		return nil
 	}
-	return c.Context.SdkMap["user_api"].(userSdk.UserApi)
+	return c.Context.SdkMap["user_api"].(userSdk.LoginApi)
 }
 
 func (c *Context) MsgApi() msgSdk.MsgApi {

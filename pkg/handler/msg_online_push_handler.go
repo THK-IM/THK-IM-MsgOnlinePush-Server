@@ -18,15 +18,7 @@ import (
 func RegisterMsgOnlinePushHandlers(ctx *app.Context) {
 	server := ctx.WebsocketServer()
 	server.SetUidGetter(func(claim baseDto.ThkClaims) (int64, error) {
-		//if ctx.Config().Mode == "debug" {
-		//	if uId, err := strconv.Atoi(baseDto.JwtToken); err != nil {
-		//		ctx.Logger().WithFields(logrus.Fields(claim)).Errorf("GetUidByToken: %v, err: %v", claim, err)
-		//		return 0, err
-		//	} else {
-		//		return int64(uId), nil
-		//	}
-		//} else {
-		if res, err := ctx.UserApi().LoginByToken(claim); err != nil {
+		if res, err := ctx.LoginApi().LoginByToken(claim); err != nil {
 			ctx.Logger().WithFields(logrus.Fields(claim)).Errorf("GetUidByToken: %v, err: %v", claim, err)
 			return 0, err
 		} else {
@@ -34,9 +26,8 @@ func RegisterMsgOnlinePushHandlers(ctx *app.Context) {
 				ctx.Logger().WithFields(logrus.Fields(claim)).Errorf("GetUidByToken: %v, err: %v", claim, res)
 				return 0, errors.New("user info is nil")
 			}
-			return res.User.Id, nil
+			return res.Id, nil
 		}
-		//}
 	})
 	server.SetOnClientConnected(func(client websocket.Client) {
 		ctx.Logger().Infof("OnClientConnected: %v", client.Info())
@@ -156,13 +147,13 @@ func sendUserOnlineStatus(ctx *app.Context, client websocket.Client, online, isL
 	now := time.Now().UnixMilli()
 	client.SetLastOnlineTime(now)
 	req := msgDto.PostUserOnlineReq{
-		NodeId:    ctx.NodeId(),
-		ConnId:    client.Info().Id,
-		Online:    online,
-		IsLogin:   isLogin,
-		UId:       client.Info().UId,
-		Platform:  client.Claims().GetClientPlatform(),
-		Timestamp: time.Now().UnixMilli(),
+		NodeId:      ctx.NodeId(),
+		ConnId:      client.Info().Id,
+		Online:      online,
+		IsLogin:     isLogin,
+		UId:         client.Info().UId,
+		Platform:    client.Claims().GetClientPlatform(),
+		TimestampMs: time.Now().UnixMilli(),
 	}
 	if err := ctx.MsgApi().PostUserOnlineStatus(&req, client.Claims()); err != nil {
 		ctx.Logger().WithFields(logrus.Fields(client.Claims())).Errorf("sendUserOnlineStatus, err: %v", err)
