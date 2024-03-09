@@ -16,7 +16,7 @@ func (c *Context) LoginApi() userSdk.LoginApi {
 	if c.Context.SdkMap["login_api"] == nil {
 		return nil
 	}
-	return c.Context.SdkMap["user_api"].(userSdk.LoginApi)
+	return c.Context.SdkMap["login_api"].(userSdk.LoginApi)
 }
 
 func (c *Context) MsgApi() msgSdk.MsgApi {

@@ -47,7 +47,7 @@ Metric:
   PushGateway: ""
   PushInterval: 10
 Sdks:
-  - Name: user_api
+  - Name: login_api
     Endpoint: "http://user-api.thkim.com:10000"
   - Name: msg_api
     Endpoint: "http://msg-api.thkim.com:20000"
