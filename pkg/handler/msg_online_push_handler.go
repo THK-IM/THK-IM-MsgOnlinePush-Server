@@ -57,7 +57,7 @@ func RegisterMsgOnlinePushHandlers(ctx *app.Context) {
 		// 发送用户上线事件
 		{
 			if userOnlineEvent, err := event.BuildUserOnlineEvent(ctx.NodeId(), true,
-				client.Info().UId, client.Info().Id, client.Info().FirstOnLineTime, client.Claims().GetClientPlatform()); err != nil {
+				client.Info().UId, client.Info().Id, client.Info().FirstOnLineTime, client.Claims().GetPlatform()); err != nil {
 				ctx.Logger().WithFields(logrus.Fields(client.Claims())).Error("UserOnlineEvent Build err:", err)
 			} else {
 				if err = ctx.ServerEventPublisher().Pub(fmt.Sprintf("uid-%d", client.Info().UId), userOnlineEvent); err != nil {
@@ -152,7 +152,7 @@ func sendUserOnlineStatus(ctx *app.Context, client websocket.Client, online, isL
 		Online:      online,
 		IsLogin:     isLogin,
 		UId:         client.Info().UId,
-		Platform:    client.Claims().GetClientPlatform(),
+		Platform:    client.Claims().GetPlatform(),
 		TimestampMs: time.Now().UnixMilli(),
 	}
 	if err := ctx.MsgApi().PostUserOnlineStatus(&req, client.Claims()); err != nil {
@@ -190,7 +190,7 @@ func processUserOnlineEvent(body *event.OnlineBody, server websocket.Server, app
 				}
 			} else if appCtx.Config().WebSocket.MultiPlatform == 1 {
 				// 一个平台只能登录一台设备
-				if client.Claims().GetClientPlatform() == body.Platform {
+				if client.Claims().GetPlatform() == body.Platform {
 					if client.Info().FirstOnLineTime < body.OnLineTime {
 						if err := server.RemoveClient(body.UserId, "connect at other device", client); err != nil {
 							appCtx.Logger().Error("OnUserOnLineEvent RemoveClient err: ", err)
