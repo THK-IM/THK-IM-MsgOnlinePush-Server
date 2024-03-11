@@ -26,7 +26,7 @@ func RegisterMsgOnlinePushHandlers(ctx *app.Context) {
 				ctx.Logger().WithFields(logrus.Fields(claim)).Errorf("GetUidByToken: %v, err: %v", claim, res)
 				return 0, errors.New("user info is nil")
 			}
-			return res.Id, nil
+			return res.User.Id, nil
 		}
 	})
 	server.SetOnClientConnected(func(client websocket.Client) {
