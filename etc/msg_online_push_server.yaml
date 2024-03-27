@@ -2,6 +2,8 @@ Name: msg_online_push_server
 Host: 0.0.0.0
 Port: 21000
 Mode: debug
+BodyCipher: 1234123412341234
+BodyCipherIV: 1234123412341234
 # exposed外网暴露模式，校验用户token
 # backend后端模式，校验ip
 DeployMode: "backend"

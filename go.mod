@@ -4,9 +4,9 @@ go 1.19
 
 require (
 	github.com/sirupsen/logrus v1.9.3
-	github.com/thk-im/thk-im-base-server v0.0.0-20240319045012-d2e76b2b4238
-	github.com/thk-im/thk-im-msgapi-server v0.0.0-20240311072341-e78eb497d64b
-	github.com/thk-im/thk-im-user-server v0.0.0-20240319044528-4a3a88c1f10e
+	github.com/thk-im/thk-im-base-server v0.0.0-20240327111031-90073fd323e4
+	github.com/thk-im/thk-im-msgapi-server v0.0.0-20240327111351-bdfe3ba77561
+	github.com/thk-im/thk-im-user-server v0.0.0-20240322113026-7484588ba9f4
 )
 
 require (
@@ -31,6 +31,7 @@ require (
 	github.com/go-resty/resty/v2 v2.11.0 // indirect
 	github.com/go-sql-driver/mysql v1.7.0 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
+	github.com/golang-jwt/jwt/v5 v5.2.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/h2non/filetype v1.1.3 // indirect
 	github.com/hashicorp/consul/api v1.27.0 // indirect

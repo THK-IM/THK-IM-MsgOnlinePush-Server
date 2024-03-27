@@ -73,6 +73,8 @@ github.com/go-stack/stack v1.8.0/go.mod h1:v0f6uXyyMGvRgIKkXu+yp6POWl0qKG85gN/me
 github.com/goccy/go-json v0.10.2 h1:CrxCmQqYDkv1z7lO7Wbh2HN93uovUHgrECaO5ZrCXAU=
 github.com/goccy/go-json v0.10.2/go.mod h1:6MelG93GURQebXPDq3khkgXZkazVtN9CRI+MGFi0w8I=
 github.com/gogo/protobuf v1.1.1/go.mod h1:r8qH/GZQm5c6nD/R0oafs1akxWv10x8SbQlK7atdtwQ=
+github.com/golang-jwt/jwt/v5 v5.2.0 h1:d/ix8ftRUorsN+5eMIlF4T6J8CAt9rch3My2winC1Jw=
+github.com/golang-jwt/jwt/v5 v5.2.0/go.mod h1:pqrtFR0X4osieyHYxtmOUWsAWrfe1Q5UVIyoH402zdk=
 github.com/golang/protobuf v1.2.0/go.mod h1:6lQm79b+lXiMfvg/cZm0SGofjICqVBUtrP5yJMmIC1U=
 github.com/golang/protobuf v1.3.1/go.mod h1:6lQm79b+lXiMfvg/cZm0SGofjICqVBUtrP5yJMmIC1U=
 github.com/golang/protobuf v1.3.2/go.mod h1:6lQm79b+lXiMfvg/cZm0SGofjICqVBUtrP5yJMmIC1U=
@@ -264,12 +266,12 @@ github.com/stretchr/testify v1.8.1/go.mod h1:w2LPCIKwWwSfY2zedu0+kehJoqGctiVI29o
 github.com/stretchr/testify v1.8.2/go.mod h1:w2LPCIKwWwSfY2zedu0+kehJoqGctiVI29o6fzry7u4=
 github.com/stretchr/testify v1.8.3/go.mod h1:sz/lmYIOXD/1dqDmKjjqLyZ2RngseejIcXlSw2iwfAo=
 github.com/stretchr/testify v1.8.4 h1:CcVxjf3Q8PM0mHUKJCdn+eZZtm5yQwehR5yeSVQQcUk=
-github.com/thk-im/thk-im-base-server v0.0.0-20240319045012-d2e76b2b4238 h1:r/rcR0d/eWpmkYgWWEQFcyMc4yi81lomRGvdPFeAnVM=
-github.com/thk-im/thk-im-base-server v0.0.0-20240319045012-d2e76b2b4238/go.mod h1:TFfuXLYxAtlGW2tIRn4RltdTlcvADTRGvjxSiSAstLE=
-github.com/thk-im/thk-im-msgapi-server v0.0.0-20240311072341-e78eb497d64b h1:QZsOYa4YxxAXEwWzVvV8aIY6txbRC78Gqt3F7auibhw=
-github.com/thk-im/thk-im-msgapi-server v0.0.0-20240311072341-e78eb497d64b/go.mod h1:NbRtqWsTidAChwQIz7d3kRB3AdibDCSPHGRfJiEwce0=
-github.com/thk-im/thk-im-user-server v0.0.0-20240319044528-4a3a88c1f10e h1:9xV2LEhzj6TaEWHo56DzqNcqunikwFDWng0eHhhGCNE=
-github.com/thk-im/thk-im-user-server v0.0.0-20240319044528-4a3a88c1f10e/go.mod h1:c/7Qwc9tqKImurz/WY8WFAua3miD3+Xr7GDmEXLgZeM=
+github.com/thk-im/thk-im-base-server v0.0.0-20240327111031-90073fd323e4 h1:u2A/Z4GKwu0NKyfxxke6pIyKoHYSaNND0/p91evCe7c=
+github.com/thk-im/thk-im-base-server v0.0.0-20240327111031-90073fd323e4/go.mod h1:TFfuXLYxAtlGW2tIRn4RltdTlcvADTRGvjxSiSAstLE=
+github.com/thk-im/thk-im-msgapi-server v0.0.0-20240327111351-bdfe3ba77561 h1:rTr39wBVbuYcIqD2Y/MIrgyjlSLCE85834poFdZrgWc=
+github.com/thk-im/thk-im-msgapi-server v0.0.0-20240327111351-bdfe3ba77561/go.mod h1:f/0riP3TSEBd7zs+Fw+xjPXd+gcAG9oFsZ+PqKjgEos=
+github.com/thk-im/thk-im-user-server v0.0.0-20240322113026-7484588ba9f4 h1:Ynbu2FJsYC6FMvJlE869FK+d6tjj6Pz5uIyuCFdvOjo=
+github.com/thk-im/thk-im-user-server v0.0.0-20240322113026-7484588ba9f4/go.mod h1:OnuTQTKpFr4/oYDCYc9tJNklH1pXXGY9R2cnnDxEM/k=
 github.com/tv42/httpunix v0.0.0-20150427012821-b75d8614f926/go.mod h1:9ESjWnEqriFuLhtthL60Sar/7RFoluCcXsuvEwTV5KM=
 github.com/twitchyliquid64/golang-asm v0.15.1 h1:SU5vSMR7hnwNxj24w34ZyCi/FmDZTkS4MhqMhdFk5YI=
 github.com/twitchyliquid64/golang-asm v0.15.1/go.mod h1:a1lVb/DtPvCB8fslRZhAngC2+aY1QWCk3Cedj/Gdt08=
