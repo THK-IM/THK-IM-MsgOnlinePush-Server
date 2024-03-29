@@ -4,8 +4,8 @@ go 1.19
 
 require (
 	github.com/sirupsen/logrus v1.9.3
-	github.com/thk-im/thk-im-base-server v0.0.0-20240327112208-250112f4cda5
-	github.com/thk-im/thk-im-msgapi-server v0.0.0-20240327112449-627306ac311e
+	github.com/thk-im/thk-im-base-server v0.0.0-20240329114033-0b5c497ed4dd
+	github.com/thk-im/thk-im-msgapi-server v0.0.0-20240329114220-d2c2df694b8d
 	github.com/thk-im/thk-im-user-server v0.0.0-20240322113026-7484588ba9f4
 )
 
