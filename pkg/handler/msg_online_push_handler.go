@@ -194,7 +194,8 @@ func processUserOnlineEvent(body *event.OnlineBody, server websocket.Server, app
 					} else {
 						appCtx.Logger().Error("OnUserOnLineEvent RemoveClient WriteMessage err: ", errBody)
 					}
-					if err := server.RemoveClient(body.UserId, "connect at other device", client); err != nil {
+					time.Sleep(time.Second)
+					if _, err := client.Close("connect at other device"); err != nil {
 						appCtx.Logger().Error("OnUserOnLineEvent RemoveClient err: ", err)
 					}
 				}
@@ -211,7 +212,8 @@ func processUserOnlineEvent(body *event.OnlineBody, server websocket.Server, app
 						} else {
 							appCtx.Logger().Error("OnUserOnLineEvent RemoveClient WriteMessage err: ", errBody)
 						}
-						if err := server.RemoveClient(body.UserId, "connect at other device", client); err != nil {
+						time.Sleep(time.Second)
+						if _, err := client.Close("connect at other device"); err != nil {
 							appCtx.Logger().Error("OnUserOnLineEvent RemoveClient err: ", err)
 						}
 					}
