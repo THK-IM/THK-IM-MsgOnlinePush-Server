@@ -7,6 +7,7 @@ import (
 	"github.com/sirupsen/logrus"
 	baseDto "github.com/thk-im/thk-im-base-server/dto"
 	"github.com/thk-im/thk-im-base-server/event"
+	baseEvent "github.com/thk-im/thk-im-base-server/event"
 	"github.com/thk-im/thk-im-base-server/websocket"
 	msgDto "github.com/thk-im/thk-im-msgapi-server/pkg/dto"
 	"github.com/thk-im/thk-im-msgonlinepush-server/pkg/app"
@@ -184,6 +185,15 @@ func processUserOnlineEvent(body *event.OnlineBody, server websocket.Server, app
 			if appCtx.Config().WebSocket.MultiPlatform == 0 {
 				// 不允许跨平台
 				if client.Info().FirstOnLineTime < body.OnLineTime {
+					msgBody, errBody := baseEvent.BuildSignalBody(baseEvent.SignalOtherDeviceLogin, "")
+					if errBody == nil {
+						errMsg := client.WriteMessage(msgBody)
+						if errMsg != nil {
+							appCtx.Logger().Error("OnUserOnLineEvent RemoveClient WriteMessage err: ", errMsg)
+						}
+					} else {
+						appCtx.Logger().Error("OnUserOnLineEvent RemoveClient WriteMessage err: ", errBody)
+					}
 					if err := server.RemoveClient(body.UserId, "connect at other device", client); err != nil {
 						appCtx.Logger().Error("OnUserOnLineEvent RemoveClient err: ", err)
 					}
@@ -192,6 +202,15 @@ func processUserOnlineEvent(body *event.OnlineBody, server websocket.Server, app
 				// 一个平台只能登录一台设备
 				if client.Claims().GetPlatform() == body.Platform {
 					if client.Info().FirstOnLineTime < body.OnLineTime {
+						msgBody, errBody := baseEvent.BuildSignalBody(baseEvent.SignalOtherDeviceLogin, "")
+						if errBody == nil {
+							errMsg := client.WriteMessage(msgBody)
+							if errMsg != nil {
+								appCtx.Logger().Error("OnUserOnLineEvent RemoveClient WriteMessage err: ", errMsg)
+							}
+						} else {
+							appCtx.Logger().Error("OnUserOnLineEvent RemoveClient WriteMessage err: ", errBody)
+						}
 						if err := server.RemoveClient(body.UserId, "connect at other device", client); err != nil {
 							appCtx.Logger().Error("OnUserOnLineEvent RemoveClient err: ", err)
 						}
