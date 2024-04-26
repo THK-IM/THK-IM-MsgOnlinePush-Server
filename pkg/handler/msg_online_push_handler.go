@@ -152,6 +152,7 @@ func sendUserOnlineStatus(ctx *app.Context, client websocket.Client, online, isL
 		ConnId:      client.Info().Id,
 		Online:      online,
 		IsLogin:     isLogin,
+		LoginTime:   client.Info().FirstOnLineTime,
 		UId:         client.Info().UId,
 		Platform:    client.Claims().GetPlatform(),
 		TimestampMs: time.Now().UnixMilli(),

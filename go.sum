@@ -268,8 +268,8 @@ github.com/stretchr/testify v1.8.3/go.mod h1:sz/lmYIOXD/1dqDmKjjqLyZ2RngseejIcXl
 github.com/stretchr/testify v1.8.4 h1:CcVxjf3Q8PM0mHUKJCdn+eZZtm5yQwehR5yeSVQQcUk=
 github.com/thk-im/thk-im-base-server v0.0.0-20240424103315-e02de8a9c0ce h1:2GUuWNC22UrVC13HNAFVFiEW+xqpZiWCvPcHd5bErIk=
 github.com/thk-im/thk-im-base-server v0.0.0-20240424103315-e02de8a9c0ce/go.mod h1:TFfuXLYxAtlGW2tIRn4RltdTlcvADTRGvjxSiSAstLE=
-github.com/thk-im/thk-im-msgapi-server v0.0.0-20240419161237-2d96e0c68c6d h1:b181uoFXLSxQaafF2xm9jHjMCrkF1XtfHcwJYdQudzA=
-github.com/thk-im/thk-im-msgapi-server v0.0.0-20240419161237-2d96e0c68c6d/go.mod h1:EEC7b1Uok92Gvsk2EIb0sC701YLVr2D83rCiF4DmeLc=
+github.com/thk-im/thk-im-msgapi-server v0.0.0-20240426122139-4b7844f962f7 h1:efqwrqFE4F5WOyviPCLHcrreUr4Ju+LnjmCHXzFpqTI=
+github.com/thk-im/thk-im-msgapi-server v0.0.0-20240426122139-4b7844f962f7/go.mod h1:EEC7b1Uok92Gvsk2EIb0sC701YLVr2D83rCiF4DmeLc=
 github.com/thk-im/thk-im-user-server v0.0.0-20240331132421-dd7eb7df3d87 h1:c0b4dwqnOyIxV45cTq3f0rgt2ACjtR2p0KhraOq6lEA=
 github.com/thk-im/thk-im-user-server v0.0.0-20240331132421-dd7eb7df3d87/go.mod h1:MwuK55rNjekNjrAprMh3XWOUWjnJOL0Wy+jyU+ey5AY=
 github.com/tv42/httpunix v0.0.0-20150427012821-b75d8614f926/go.mod h1:9ESjWnEqriFuLhtthL60Sar/7RFoluCcXsuvEwTV5KM=
