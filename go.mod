@@ -4,9 +4,9 @@ go 1.19
 
 require (
 	github.com/sirupsen/logrus v1.9.3
-	github.com/thk-im/thk-im-base-server v0.0.0-20240424103315-e02de8a9c0ce
-	github.com/thk-im/thk-im-msgapi-server v0.0.0-20240426122139-4b7844f962f7
-	github.com/thk-im/thk-im-user-server v0.0.0-20240331132421-dd7eb7df3d87
+	github.com/thk-im/thk-im-base-server v0.0.0-20241028032757-9afdc839d839
+	github.com/thk-im/thk-im-msgapi-server v0.0.0-20241028065152-a6255d596f80
+	github.com/thk-im/thk-im-user-server v0.0.0-20241028064738-e067e73f5b92
 )
 
 require (
@@ -86,5 +86,5 @@ require (
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gorm.io/driver/mysql v1.5.2 // indirect
-	gorm.io/gorm v1.25.7 // indirect
+	gorm.io/gorm v1.25.10 // indirect
 )
